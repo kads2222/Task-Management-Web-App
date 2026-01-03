@@ -1,4 +1,5 @@
-import Modal from "./components/modal/MOdal";
+import Modal from "./components/modal/Modal";
+import TaskList from "./components/taskList/TaskList";
 import { useState } from "react";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           onSave={handleAddProject}
         />
       )}
+      <TaskList tasks={tasks} />
     </div>
   );
 }

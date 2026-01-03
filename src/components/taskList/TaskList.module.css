@@ -1,0 +1,76 @@
+.task {
+  width: 800px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-family: Airal, sans-serif;
+  align-items: center;
+}
+
+.taskName {
+  width: 200px;
+  margin: 0;
+  padding: 0;
+}
+
+.priority {
+  width: 160px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.low {
+  background-color: #8eb69b;
+}
+
+.medium {
+  background-color: #ffe8a8;
+}
+
+.high {
+  background-color: #ff8d9a;
+}
+
+.progress {
+  width: 120px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notstarted {
+  background-color: #d7cdcc;
+}
+
+.inprogress {
+  background-color: #bde0fe;
+}
+
+.done {
+  background-color: #c8f4c0;
+}
+
+.date {
+  width: 160px;
+  background-color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 5px;
+}
+.text {
+  width: 100px;
+}
