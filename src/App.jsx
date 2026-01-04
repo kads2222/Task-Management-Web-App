@@ -1,4 +1,4 @@
-import Modal from "./components/modal/Modal";
+import Modal from "./components/modal/MOdal";
 import TaskList from "./components/taskList/TaskList";
 import { useState } from "react";
 
