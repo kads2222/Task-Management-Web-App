@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 
-function Modal({ type, onClose, onSave, projects = [] }) {
-  const [task, setTask] = useState("");
+function Modal({ type, onClose, onSave, projects = [], task }) {
+  const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [project, setProject] = useState("Other");
@@ -10,22 +10,31 @@ function Modal({ type, onClose, onSave, projects = [] }) {
   const [projectName, setProjectName] = useState("");
   const [error, setError] = useState("");
 
-  const handleAddTask = () => {
-    if (!task || !date) {
+  useEffect(() => {
+    if (task) {
+      setTaskName(task.task);
+      setDate(task.date);
+      setPriority(task.priority);
+      setProject(task.project);
+      setStatus(task.status);
+    }
+  }, [task]);
+
+  const handleSaveTask = () => {
+    if (!taskName || !date) {
       setError("Task name and date are required");
       return;
     }
 
-    const newTask = {
-      id: Date.now(),
-      task,
+    onSave({
+      id: task ? task.id : Date.now(),
+      task: taskName,
       date,
       priority,
       project,
       status,
-    };
+    });
 
-    onSave(newTask);
     onClose();
   };
 
@@ -44,27 +53,24 @@ function Modal({ type, onClose, onSave, projects = [] }) {
       <div className={styles.modal}>
         {type === "task" && (
           <>
-            <h2 className={styles.title}>Add Task</h2>
+            <h2 className={styles.title}>{task ? "Edit Task" : "Add Task"}</h2>
 
             <div className={styles.form}>
               <input
                 className={styles.input}
-                value={task}
-                placeholder="Task description"
+                value={taskName}
                 onChange={(e) => {
-                  setTask(e.target.value);
+                  setTaskName(e.target.value);
                   setError("");
                 }}
+                placeholder="Task description"
               />
 
               <input
                 className={styles.input}
                 type="date"
                 value={date}
-                onChange={(e) => {
-                  setDate(e.target.value);
-                  setError("");
-                }}
+                onChange={(e) => setDate(e.target.value)}
               />
 
               <select
@@ -85,7 +91,6 @@ function Modal({ type, onClose, onSave, projects = [] }) {
                 {projects.map((p, i) => (
                   <option key={i}>{p}</option>
                 ))}
-                <option>Other</option>
               </select>
 
               <select
@@ -95,31 +100,8 @@ function Modal({ type, onClose, onSave, projects = [] }) {
               >
                 <option>Not Started</option>
                 <option>In Progress</option>
+                <option>Done</option>
               </select>
-
-              <div className={styles.badges}>
-                <span
-                  className={`${styles.badge} ${
-                    priority === "High"
-                      ? styles.priorityHigh
-                      : priority === "Medium"
-                      ? styles.priorityMedium
-                      : styles.priorityLow
-                  }`}
-                >
-                  {priority}
-                </span>
-
-                <span
-                  className={`${styles.badge} ${
-                    status === "In Progress"
-                      ? styles.statusInProgress
-                      : styles.statusNotStarted
-                  }`}
-                >
-                  {status}
-                </span>
-              </div>
 
               {error && <span className={styles.error}>{error}</span>}
             </div>
@@ -128,8 +110,8 @@ function Modal({ type, onClose, onSave, projects = [] }) {
               <button className={styles.secondaryBtn} onClick={onClose}>
                 Cancel
               </button>
-              <button className={styles.primaryBtn} onClick={handleAddTask}>
-                Save Task
+              <button className={styles.primaryBtn} onClick={handleSaveTask}>
+                {task ? "Update Task" : "Save Task"}
               </button>
             </div>
           </>
@@ -139,18 +121,17 @@ function Modal({ type, onClose, onSave, projects = [] }) {
           <>
             <h2 className={styles.title}>Add Project</h2>
 
-            <div className={styles.form}>
-              <input
-                className={styles.input}
-                value={projectName}
-                placeholder="Project name"
-                onChange={(e) => {
-                  setProjectName(e.target.value);
-                  setError("");
-                }}
-              />
-              {error && <span className={styles.error}>{error}</span>}
-            </div>
+            <input
+              className={styles.input}
+              value={projectName}
+              onChange={(e) => {
+                setProjectName(e.target.value);
+                setError("");
+              }}
+              placeholder="Project name"
+            />
+
+            {error && <span className={styles.error}>{error}</span>}
 
             <div className={styles.actions}>
               <button className={styles.secondaryBtn} onClick={onClose}>
