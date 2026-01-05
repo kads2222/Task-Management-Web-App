@@ -1,93 +1,104 @@
+.tasks {
+  padding: 0;
+}
+
 .task {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  padding: 5px 10px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr auto auto;
+  gap: 12px;
+  padding: 12px;
   margin-bottom: 10px;
-  border: 1px solid;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  font-family: Airal, sans-serif;
   align-items: center;
 }
 
 .taskName {
-  width: 200px;
-  margin: 0;
-  padding: 0;
+  font-weight: 500;
 }
 
-.priority {
-  width: 160px;
+.priority,
+.progress {
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .low {
-  background-color: #8eb69b;
+  background-color: #dcfce7;
 }
 
 .medium {
-  background-color: #ffe8a8;
+  background-color: #fef3c7;
 }
 
 .high {
-  background-color: #ff8d9a;
-}
-
-.progress {
-  width: 120px;
-  height: 30px;
-  text-align: center;
-  border: none;
-  border-radius: 5px;
-  font-weight: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #fee2e2;
 }
 
 .notstarted {
-  background-color: #d7cdcc;
+  background-color: #e5e7eb;
 }
 
 .inprogress {
-  background-color: #bde0fe;
+  background-color: #dbeafe;
 }
 
 .done {
-  background-color: #c8f4c0;
+  background-color: #dcfce7;
 }
 
 .date {
-  width: 160px;
-  background-color: white;
-  padding: 4px 8px;
-  border: none;
-  border-radius: 5px;
+  font-size: 14px;
 }
+
 .text {
-  width: 100px;
+  font-size: 14px;
 }
 
 .editbtn,
 .deletebtn {
-  width: 64px;
   height: 30px;
+  padding: 0 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
 }
 
 .editbtn {
-  background-color: rgb(255, 217, 47);
-  color: white;
+  background-color: #facc15;
+  color: #111827;
 }
 
 .deletebtn {
-  background-color: rgb(255, 79, 79);
+  background-color: #ef4444;
   color: white;
+}
+
+@media (max-width: 1024px) {
+  .task {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .editbtn,
+  .deletebtn {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .task {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .editbtn,
+  .deletebtn {
+    width: 100%;
+  }
 }

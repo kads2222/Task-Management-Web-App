@@ -1,18 +1,12 @@
 import styles from "./TaskList.module.css";
 
 function TaskList({ tasks, onEdit, onDelete }) {
-  const handleStatusClass = (status) => {
-    switch (status) {
-      case "Not Started":
-        return styles.notstarted;
-      case "In Progress":
-        return styles.inprogress;
-      case "Done":
-        return styles.done;
-      default:
-        return styles.notstarted;
-    }
-  };
+  const statusClass = (status) =>
+    status === "Done"
+      ? styles.done
+      : status === "In Progress"
+      ? styles.inprogress
+      : styles.notstarted;
 
   return (
     <ul className={styles.tasks}>
@@ -31,9 +25,7 @@ function TaskList({ tasks, onEdit, onDelete }) {
 
           <div className={styles.text}>{task.project}</div>
 
-          <div
-            className={`${styles.progress} ${handleStatusClass(task.status)}`}
-          >
+          <div className={`${styles.progress} ${statusClass(task.status)}`}>
             {task.status}
           </div>
 
