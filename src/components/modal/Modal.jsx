@@ -27,7 +27,7 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
     }
 
     onSave({
-      id: task ? task.id : Date.now(),
+      id: task ? task.id : crypto.randomUUID(),
       task: taskName,
       date,
       priority,

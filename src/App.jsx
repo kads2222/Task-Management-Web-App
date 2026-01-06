@@ -15,7 +15,7 @@ function App() {
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("date");
 
-  const handleAddTask = (task) => setTasks([...tasks, task]);
+  const handleAddTask = (task) => setTasks((prev) => [...prev, task]);
 
   const openCreateTask = () => {
     setEditingTask(null);
@@ -27,7 +27,9 @@ function App() {
   };
 
   const handleUpdateTask = (updatedTask) =>
-    setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
 
   const openEditTask = (task) => {
     setEditingTask(task);
@@ -35,7 +37,7 @@ function App() {
   };
 
   const handleDeleteTask = (id) =>
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
 
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
@@ -62,6 +64,7 @@ function App() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+
         <select
           className={styles.select}
           value={filterProject}
@@ -105,6 +108,7 @@ function App() {
           <option value="status">Sort by Status</option>
         </select>
       </div>
+
       <div className={styles.btn}>
         <div className={styles.btnwrapper}>
           <button className={styles.button} onClick={openCreateTask}>
