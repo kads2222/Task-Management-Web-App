@@ -1,104 +1,107 @@
 .tasks {
   padding: 0;
+  list-style: none;
+  max-width: 1000px;
+  margin: 20px auto;
 }
 
 .task {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr auto auto;
-  gap: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  grid-template-columns: 2fr 1.2fr 1fr 1fr 1.2fr auto auto;
+  gap: 20px;
+  padding: 16px 24px;
+  margin-bottom: 12px;
+  background-color: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 12px;
   align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 255, 0.05);
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px -3px rgb(0, 0, 255);
+  border-color: #e5e7eb;
 }
 
 .taskName {
-  font-weight: 500;
+  font-weight: 600;
+  color: #111827;
+  font-size: 15px;
+}
+
+.date,
+.text {
+  font-size: 14px;
+  color: #6b7280;
 }
 
 .priority,
 .progress {
-  height: 30px;
-  display: flex;
+  height: 26px;
+  padding: 0 12px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
 .low {
-  background-color: #dcfce7;
+  background-color: #ecfdf5;
+  color: #059669;
 }
-
 .medium {
-  background-color: #fef3c7;
+  background-color: #fffbeb;
+  color: #d97706;
 }
-
 .high {
-  background-color: #fee2e2;
+  background-color: #fef2f2;
+  color: #dc2626;
 }
 
 .notstarted {
-  background-color: #e5e7eb;
+  background-color: #f3f4f6;
+  color: #4b5563;
 }
-
 .inprogress {
-  background-color: #dbeafe;
+  background-color: #eff6ff;
+  color: #2563eb;
 }
-
 .done {
-  background-color: #dcfce7;
-}
-
-.date {
-  font-size: 14px;
-}
-
-.text {
-  font-size: 14px;
+  background-color: #f0fdf4;
+  color: #16a34a;
 }
 
 .editbtn,
 .deletebtn {
-  height: 30px;
-  padding: 0 12px;
+  height: 32px;
+  padding: 0 14px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .editbtn {
-  background-color: #facc15;
-  color: #111827;
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.editbtn:hover {
+  background-color: #e5e7eb;
 }
 
 .deletebtn {
-  background-color: #ef4444;
-  color: white;
+  background-color: #fee2e2;
+  color: #ef4444;
 }
 
-@media (max-width: 1024px) {
-  .task {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-
-  .editbtn,
-  .deletebtn {
-    grid-column: span 2;
-  }
-}
-
-@media (max-width: 640px) {
-  .task {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .editbtn,
-  .deletebtn {
-    width: 100%;
-  }
+.deletebtn:hover {
+  background-color: #fecaca;
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import TaskList from "./components/taskList/TaskList";
 import Modal from "./components/modal/Modal";
 import styles from "./App.module.css";
-import { FaPlus, FaProjectDiagram, FaBars } from "react-icons/fa";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -15,25 +14,28 @@ function App() {
   const [filterStatus, setFilterStatus] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("date");
-  const [showFilters, setShowFilters] = useState(false);
 
   const handleAddTask = (task) => setTasks([...tasks, task]);
-  const handleUpdateTask = (updatedTask) =>
-    setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
-  const handleDeleteTask = (id) =>
-    setTasks(tasks.filter((task) => task.id !== id));
-  const handleAddProject = (project) => {
-    if (!projects.includes(project)) setProjects([...projects, project]);
-  };
 
   const openCreateTask = () => {
     setEditingTask(null);
     setModalType("task");
   };
+
+  const handleAddProject = (project) => {
+    if (!projects.includes(project)) setProjects([...projects, project]);
+  };
+
+  const handleUpdateTask = (updatedTask) =>
+    setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
+
   const openEditTask = (task) => {
     setEditingTask(task);
     setModalType("task");
   };
+
+  const handleDeleteTask = (id) =>
+    setTasks(tasks.filter((task) => task.id !== id));
 
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
@@ -48,37 +50,18 @@ function App() {
     });
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Task Management System</h1>
+    <div>
+      <h1>Task Management System</h1>
 
-      <div className={styles.actions}>
-        <button className={styles.primaryBtn} onClick={openCreateTask}>
-          <FaPlus className={styles.icon} /> Add Task
-        </button>
-        <button
-          className={styles.secondaryBtn}
-          onClick={() => setModalType("project")}
-        >
-          <FaProjectDiagram className={styles.icon} /> Add Project
-        </button>
-      </div>
-
-      <div className={styles.searchRow}>
-        <input
-          className={styles.input}
-          placeholder="Search tasks..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          className={styles.filterToggle}
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <FaBars />
-        </button>
-      </div>
-
-      <div className={`${styles.controls} ${showFilters ? styles.show : ""}`}>
+      <div className={styles.controls}>
+        <div>
+          <input
+            className={styles.searchbar}
+            placeholder="Search tasks..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         <select
           className={styles.select}
           value={filterProject}
@@ -121,6 +104,21 @@ function App() {
           <option value="priority">Sort by Priority</option>
           <option value="status">Sort by Status</option>
         </select>
+      </div>
+      <div className={styles.btn}>
+        <div className={styles.btnwrapper}>
+          <button className={styles.button} onClick={openCreateTask}>
+            Add Task
+          </button>
+        </div>
+        <div className={styles.btnwrapper}>
+          <button
+            className={styles.button}
+            onClick={() => setModalType("project")}
+          >
+            Add Project
+          </button>
+        </div>
       </div>
 
       {modalType && (

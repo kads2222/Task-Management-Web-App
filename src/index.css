@@ -1,24 +1,4 @@
-.buttons {
-  padding: 8px 16px;
-  color: black;
-  background-color: #d7cdcc;
-  border: none;
-  border-radius: 5px;
-  margin-right: 20px;
-  font-weight: 500;
-  font-family: Arial, sans-serif;
-  font-size: 1em;
-}
-
-.buttons:hover {
-  background-color: white;
-  border: 1px solid #000;
-  color: #00205a;
-}
-
-.buttons:active {
-  background-color: #00205a;
-  border: none;
-  color: white;
-  box-shadow: #000;
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 20px;
 }

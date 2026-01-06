@@ -78,9 +78,9 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
               >
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
               </select>
 
               <select
@@ -89,7 +89,9 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
                 onChange={(e) => setProject(e.target.value)}
               >
                 {projects.map((p, i) => (
-                  <option key={i}>{p}</option>
+                  <option key={i} value={p}>
+                    {p}
+                  </option>
                 ))}
               </select>
 
@@ -98,9 +100,9 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
-                <option>Not Started</option>
-                <option>In Progress</option>
-                <option>Done</option>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
               </select>
 
               {error && <span className={styles.error}>{error}</span>}
