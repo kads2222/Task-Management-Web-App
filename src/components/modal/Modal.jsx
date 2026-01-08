@@ -120,7 +120,7 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
         )}
 
         {type === "project" && (
-          <>
+          <div className={styles.form}>
             <h2 className={styles.title}>Add Project</h2>
 
             <input
@@ -143,7 +143,7 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
                 Save Project
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

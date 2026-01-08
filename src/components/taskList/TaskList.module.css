@@ -2,15 +2,15 @@
   padding: 0;
   list-style: none;
   max-width: 1000px;
-  margin: 20px auto;
+  margin: 2rem auto;
 }
 
 .task {
   display: grid;
   grid-template-columns: 2fr 1.2fr 1fr 1fr 1.2fr auto auto;
-  gap: 20px;
-  padding: 16px 24px;
-  margin-bottom: 12px;
+  gap: 2rem;
+  padding: 1.6rem 2.4rem;
+  margin-bottom: 1.2rem;
   background-color: #ffffff;
   border: 1px solid #f3f4f6;
   border-radius: 12px;
@@ -33,19 +33,19 @@
 
 .date,
 .text {
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #6b7280;
 }
 
 .priority,
 .progress {
-  height: 26px;
-  padding: 0 12px;
+  height: 2.6rem;
+  padding: 0 1.2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -78,12 +78,12 @@
 
 .editbtn,
 .deletebtn {
-  height: 32px;
-  padding: 0 14px;
+  height: 3.2rem;
+  padding: 0 1.4rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 1.3rem;
   font-weight: 500;
   transition: all 0.2s ease;
 }
