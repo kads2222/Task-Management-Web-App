@@ -53,69 +53,63 @@ function App() {
 
   return (
     <div>
-      <h1>Task Management System</h1>
-
-      <div className={styles.controls}>
-        <div>
-          <input
-            className={styles.searchbar}
-            placeholder="Search tasks..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+      <div className={styles.container}>
+        <h1>Task Management System</h1>
+        <div className={styles.controls}>
+          <div>
+            <input
+              className={styles.searchbar}
+              placeholder="Search tasks..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className={styles.control}>
+            <select
+              className={styles.select}
+              value={filterProject}
+              onChange={(e) => setFilterProject(e.target.value)}
+            >
+              <option value="All">All Projects</option>
+              {projects.map((p, i) => (
+                <option key={i}>{p}</option>
+              ))}
+            </select>
+            <select
+              className={styles.select}
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <option value="All">All Status</option>
+              <option>Not Started</option>
+              <option>In Progress</option>
+              <option>Done</option>
+            </select>
+            <select
+              className={styles.select}
+              value={filterPriority}
+              onChange={(e) => setFilterPriority(e.target.value)}
+            >
+              <option value="All">All Priority</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+            <select
+              className={styles.select}
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="date">Sort by Date</option>
+              <option value="priority">Sort by Priority</option>
+              <option value="status">Sort by Status</option>
+            </select>
+          </div>
         </div>
-
-        <select
-          className={styles.select}
-          value={filterProject}
-          onChange={(e) => setFilterProject(e.target.value)}
-        >
-          <option value="All">All Projects</option>
-          {projects.map((p, i) => (
-            <option key={i}>{p}</option>
-          ))}
-        </select>
-
-        <select
-          className={styles.select}
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-        >
-          <option value="All">All Status</option>
-          <option>Not Started</option>
-          <option>In Progress</option>
-          <option>Done</option>
-        </select>
-
-        <select
-          className={styles.select}
-          value={filterPriority}
-          onChange={(e) => setFilterPriority(e.target.value)}
-        >
-          <option value="All">All Priority</option>
-          <option>High</option>
-          <option>Medium</option>
-          <option>Low</option>
-        </select>
-
-        <select
-          className={styles.select}
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="date">Sort by Date</option>
-          <option value="priority">Sort by Priority</option>
-          <option value="status">Sort by Status</option>
-        </select>
-      </div>
-
-      <div className={styles.btn}>
-        <div className={styles.btnwrapper}>
+        <div className={styles.buttons}>
           <button className={styles.button} onClick={openCreateTask}>
             Add Task
           </button>
-        </div>
-        <div className={styles.btnwrapper}>
           <button
             className={styles.button}
             onClick={() => setModalType("project")}
