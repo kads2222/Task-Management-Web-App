@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskList from "./components/taskList/TaskList";
 import Modal from "./components/modal/Modal";
 import styles from "./App.module.css";
 
+const TASKS_KEY = "tasks";
+const PROJECTS_KEY = "projects";
+
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState(["Other"]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem(TASKS_KEY);
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
+  const [projects, setProjects] = useState(() => {
+    const storedProjects = localStorage.getItem(PROJECTS_KEY);
+    return storedProjects ? JSON.parse(storedProjects) : ["Other"];
+  });
+
   const [modalType, setModalType] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
 
@@ -15,29 +26,43 @@ function App() {
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("date");
 
-  const handleAddTask = (task) => setTasks((prev) => [...prev, task]);
+  useEffect(() => {
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+  }, [projects]);
+
+  const handleAddTask = (task) => {
+    setTasks((prev) => [...prev, task]);
+  };
+
+  const handleUpdateTask = (updatedTask) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
+  };
+
+  const handleDeleteTask = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
+  const handleAddProject = (project) => {
+    if (!projects.includes(project)) {
+      setProjects((prev) => [...prev, project]);
+    }
+  };
 
   const openCreateTask = () => {
     setEditingTask(null);
     setModalType("task");
   };
 
-  const handleAddProject = (project) => {
-    if (!projects.includes(project)) setProjects([...projects, project]);
-  };
-
-  const handleUpdateTask = (updatedTask) =>
-    setTasks((prev) =>
-      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
-    );
-
   const openEditTask = (task) => {
     setEditingTask(task);
     setModalType("task");
   };
-
-  const handleDeleteTask = (id) =>
-    setTasks((prev) => prev.filter((task) => task.id !== id));
 
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
@@ -55,15 +80,15 @@ function App() {
     <div>
       <div className={styles.container}>
         <h1>Task Management System</h1>
+
         <div className={styles.controls}>
-          <div>
-            <input
-              className={styles.searchbar}
-              placeholder="Search tasks..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+          <input
+            className={styles.searchbar}
+            placeholder="Search tasks..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
           <div className={styles.control}>
             <select
               className={styles.select}
@@ -72,9 +97,12 @@ function App() {
             >
               <option value="All">All Projects</option>
               {projects.map((p, i) => (
-                <option key={i}>{p}</option>
+                <option key={i} value={p}>
+                  {p}
+                </option>
               ))}
             </select>
+
             <select
               className={styles.select}
               value={filterStatus}
@@ -85,6 +113,7 @@ function App() {
               <option>In Progress</option>
               <option>Done</option>
             </select>
+
             <select
               className={styles.select}
               value={filterPriority}
@@ -95,6 +124,7 @@ function App() {
               <option>Medium</option>
               <option>Low</option>
             </select>
+
             <select
               className={styles.select}
               value={sortBy}
@@ -106,6 +136,7 @@ function App() {
             </select>
           </div>
         </div>
+
         <div className={styles.buttons}>
           <button className={styles.button} onClick={openCreateTask}>
             Add Task
