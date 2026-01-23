@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import TaskList from "./components/taskList/TaskList";
-import Modal from "./components/modal/Modal";
-import styles from "./App.module.css";
+import ListView from "./components/ListView/index";
+import KanbanView from "./components/KanbanView/index"; // Ensure this is created
+import Modal from "./components/Modal/index";
+import "./App.css";
 
 const TASKS_KEY = "tasks";
 const PROJECTS_KEY = "projects";
@@ -16,6 +17,9 @@ function App() {
     const storedProjects = localStorage.getItem(PROJECTS_KEY);
     return storedProjects ? JSON.parse(storedProjects) : ["Other"];
   });
+
+  // --- View State ---
+  const [view, setView] = useState("list"); // 'list' or 'kanban'
 
   const [modalType, setModalType] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
@@ -64,6 +68,11 @@ function App() {
     setModalType("task");
   };
 
+  // Helper to toggle view
+  const toggleView = () => {
+    setView((prevView) => (prevView === "list" ? "kanban" : "list"));
+  };
+
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
     .filter((t) => filterProject === "All" || t.project === filterProject)
@@ -78,20 +87,20 @@ function App() {
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className="container">
         <h1>Task Management System</h1>
 
-        <div className={styles.controls}>
+        <div className="controls">
           <input
-            className={styles.searchbar}
+            className="searchbar"
             placeholder="Search tasks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <div className={styles.control}>
+          <div className="control">
             <select
-              className={styles.select}
+              className="select"
               value={filterProject}
               onChange={(e) => setFilterProject(e.target.value)}
             >
@@ -104,7 +113,7 @@ function App() {
             </select>
 
             <select
-              className={styles.select}
+              className="select"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
@@ -115,7 +124,7 @@ function App() {
             </select>
 
             <select
-              className={styles.select}
+              className="select"
               value={filterPriority}
               onChange={(e) => setFilterPriority(e.target.value)}
             >
@@ -126,7 +135,7 @@ function App() {
             </select>
 
             <select
-              className={styles.select}
+              className="select"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
@@ -135,14 +144,19 @@ function App() {
               <option value="status">Sort by Status</option>
             </select>
           </div>
+          
+          {/* Updated Toggle Button */}
+          <button onClick={toggleView} className="view-mode-btn">
+            {view === "list" ? "Kanban Mode" : "List Mode"}
+          </button>
         </div>
 
-        <div className={styles.buttons}>
-          <button className={styles.button} onClick={openCreateTask}>
+        <div className="buttons">
+          <button className="button" onClick={openCreateTask}>
             Add Task
           </button>
           <button
-            className={styles.button}
+            className="button"
             onClick={() => setModalType("project")}
           >
             Add Project
@@ -166,11 +180,20 @@ function App() {
         />
       )}
 
-      <TaskList
-        tasks={filteredTasks}
-        onEdit={openEditTask}
-        onDelete={handleDeleteTask}
-      />
+      {/* Conditional Rendering of Views */}
+      {view === "list" ? (
+        <ListView
+          tasks={filteredTasks}
+          onEdit={openEditTask}
+          onDelete={handleDeleteTask}
+        />
+      ) : (
+        <KanbanView
+          tasks={filteredTasks}
+          onEdit={openEditTask}
+          onDelete={handleDeleteTask}
+        />
+      )}
     </div>
   );
 }

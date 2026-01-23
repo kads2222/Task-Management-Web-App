@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "./Modal.module.css";
+import "./styles.css";
 
 function Modal({ type, onClose, onSave, projects = [], task }) {
   const [taskName, setTaskName] = useState("");
@@ -49,15 +49,15 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
   };
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div className="overlay">
+      <div className="modal">
         {type === "task" && (
           <>
-            <h2 className={styles.title}>{task ? "Edit Task" : "Add Task"}</h2>
+            <h2 className="title">{task ? "Edit Task" : "Add Task"}</h2>
 
-            <div className={styles.form}>
+            <div className="form">
               <input
-                className={styles.input}
+                className="input"
                 value={taskName}
                 onChange={(e) => {
                   setTaskName(e.target.value);
@@ -67,14 +67,14 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
               />
 
               <input
-                className={styles.input}
+                className="input"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
 
               <select
-                className={styles.select}
+                className="select"
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
               >
@@ -84,7 +84,7 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
               </select>
 
               <select
-                className={styles.select}
+                className="select"
                 value={project}
                 onChange={(e) => setProject(e.target.value)}
               >
@@ -96,7 +96,7 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
               </select>
 
               <select
-                className={styles.select}
+                className="select"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
@@ -105,14 +105,14 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
                 <option value="Done">Done</option>
               </select>
 
-              {error && <span className={styles.error}>{error}</span>}
+              {error && <span className="error">{error}</span>}
             </div>
 
-            <div className={styles.actions}>
-              <button className={styles.secondaryBtn} onClick={onClose}>
+            <div className="actions">
+              <button className="secondaryBtn" onClick={onClose}>
                 Cancel
               </button>
-              <button className={styles.primaryBtn} onClick={handleSaveTask}>
+              <button className="primaryBtn" onClick={handleSaveTask}>
                 {task ? "Update Task" : "Save Task"}
               </button>
             </div>
@@ -120,11 +120,11 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
         )}
 
         {type === "project" && (
-          <div className={styles.form}>
-            <h2 className={styles.title}>Add Project</h2>
+          <div className="form">
+            <h2 className="title">Add Project</h2>
 
             <input
-              className={styles.input}
+              className="input"
               value={projectName}
               onChange={(e) => {
                 setProjectName(e.target.value);
@@ -133,13 +133,13 @@ function Modal({ type, onClose, onSave, projects = [], task }) {
               placeholder="Project name"
             />
 
-            {error && <span className={styles.error}>{error}</span>}
+            {error && <span className="error">{error}</span>}
 
-            <div className={styles.actions}>
-              <button className={styles.secondaryBtn} onClick={onClose}>
+            <div className="actions">
+              <button className="secondaryBtn" onClick={onClose}>
                 Cancel
               </button>
-              <button className={styles.primaryBtn} onClick={handleAddProject}>
+              <button className="primaryBtn" onClick={handleAddProject}>
                 Save Project
               </button>
             </div>
