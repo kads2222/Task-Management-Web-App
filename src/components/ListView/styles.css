@@ -1,8 +1,39 @@
-.tasks {
-  padding: 0;
-  list-style: none;
+.list-view-container {
   max-width: 1000px;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+}
+
+.list-status-group {
+  background: #fdfdfd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px dashed #d1d5db; 
+}
+
+.list-group-header {
+  font-size: 1.4rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+  border-left: 4px solid blue;
+  padding-left: 1rem;
+}
+
+.tasks-list {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 50px;
+}
+
+.drop-placeholder {
+  padding: 1rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  background: #f9fafb;
+  border-radius: 8px;
 }

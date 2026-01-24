@@ -1,28 +1,41 @@
+import { useDroppable } from "@dnd-kit/core";
 import TaskCard from "../TaskCard";
 import "./styles.css";
 
+function KanbanColumn({ status, tasks, onEdit, onDelete }) {
+  const { setNodeRef } = useDroppable({ id: status });
+
+  return (
+    <div ref={setNodeRef} className="kanban-column">
+      <h3>{status}</h3>
+      <div className="column-content">
+        {tasks.map((task) => (
+          <TaskCard
+            key={task.id}
+            task={task}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            view="kanban"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function KanbanView({ tasks, onEdit, onDelete }) {
-  const columns = ["Not Started", "In Progress", "Done"];
+  const statuses = ["Not Started", "In Progress", "Done"];
 
   return (
     <div className="kanban-board">
-      {columns.map((status) => (
-        <div key={status} className="kanban-column">
-          <h3>{status}</h3>
-          <div className="column-content">
-            {tasks
-              .filter((t) => t.status === status)
-              .map((task) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                  view="kanban"
-                />
-              ))}
-          </div>
-        </div>
+      {statuses.map((status) => (
+        <KanbanColumn
+          key={status}
+          status={status}
+          tasks={tasks.filter((t) => t.status === status)}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
       ))}
     </div>
   );
