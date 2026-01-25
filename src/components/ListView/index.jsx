@@ -6,25 +6,27 @@ function StatusGroup({ status, tasks, onEdit, onDelete }) {
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
-    <div ref={setNodeRef} className="list-status-group">
+    <div className="list-status-group">
       <h3 className="list-group-header">{status}</h3>
-      <ul className="tasks-list">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            view="list"
-          />
-        ))}
+      <div ref={setNodeRef} className="droppable-area">
+        <ul className="tasks-list">
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              view="list"
+            />
+          ))}
+        </ul>
 
         {tasks.length === 0 && (
           <div className="drop-placeholder">
-            Drop here to change to {status}
+            Drop tasks here
           </div>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

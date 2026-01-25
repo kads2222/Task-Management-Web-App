@@ -6,18 +6,23 @@ function KanbanColumn({ status, tasks, onEdit, onDelete }) {
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
-    <div ref={setNodeRef} className="kanban-column">
-      <h3>{status}</h3>
-      <div className="column-content">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            view="kanban"
-          />
-        ))}
+    <div className="kanban-column-wrapper">
+      <div ref={setNodeRef} className="kanban-column">
+        <h3>{status}</h3>
+        <div className="column-content">
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              view="kanban"
+            />
+          ))}
+          {tasks.length === 0 && (
+            <div className="kanban-empty-placeholder">No tasks</div>
+          )}
+        </div>
       </div>
     </div>
   );

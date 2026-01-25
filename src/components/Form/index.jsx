@@ -8,7 +8,6 @@ import {
   MenuItem,
   Button,
   Box,
-  Typography,
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";

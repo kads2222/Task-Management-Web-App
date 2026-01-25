@@ -52,12 +52,14 @@ function TaskCard({ task, onEdit, onDelete, view }) {
           </div>
           
           <div className="kanban-row">
-            <span className={`badge priority ${task.priority.toLowerCase()}`}>
-              {task.priority}
-            </span>
-            <span className={`badge progress ${statusClass(task.status)}`}>
-              {task.status}
-            </span>
+            <div className="badge-group">
+                <span className={`badge priority ${task.priority.toLowerCase()}`}>
+                {task.priority}
+                </span>
+                <span className={`badge progress ${statusClass(task.status)}`}>
+                {task.status}
+                </span>
+            </div>
           </div>
 
           <div className="kanban-footer">
@@ -66,18 +68,20 @@ function TaskCard({ task, onEdit, onDelete, view }) {
         </div>
       ) : (
         <div className="card-list">
-          <div className="list-col task-name">{task.task}</div>
-          <div className="list-col">
+          <div className="list-main-info">
+            <div className="list-col task-name">{task.task}</div>
+            <div className="list-col date-text">{task.date}</div>
+          </div>
+          
+          <div className="list-badges">
             <span className={`badge priority ${task.priority.toLowerCase()}`}>
               {task.priority}
             </span>
-          </div>
-          <div className="list-col">
             <span className={`badge progress ${statusClass(task.status)}`}>
               {task.status}
             </span>
           </div>
-          <div className="list-col date-text">{task.date}</div>
+
           <div className="list-col-actions">{ActionButtons}</div>
         </div>
       )}

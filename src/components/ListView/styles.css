@@ -1,39 +1,83 @@
 .list-view-container {
-  max-width: 1000px;
-  margin: 2rem auto;
+  width: 95%;
+  max-width: 1100px;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem; 
 }
 
 .list-status-group {
   background: #fdfdfd;
   border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px dashed #d1d5db; 
+  padding: 1.25rem; 
+  border: 1px solid #e5e7eb; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 
 .list-group-header {
-  font-size: 1.4rem;
-  color: #4b5563;
-  margin-bottom: 1rem;
+  font-size: 1.1rem; 
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: #374151;
+  margin-bottom: 1.25rem;
   border-left: 4px solid blue;
-  padding-left: 1rem;
+  padding-left: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.droppable-area {
+  min-height: 60px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
 
 .tasks-list {
   padding: 0;
+  margin: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  min-height: 50px;
+  gap: 0.75rem; 
 }
 
 .drop-placeholder {
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
   color: #9ca3af;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   background: #f9fafb;
+  border: 2px dashed #e5e7eb;
   border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+  .list-view-container {
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+  
+  .list-status-group {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .list-view-container {
+    width: 100%;
+    padding: 0 10px; 
+    gap: 1rem;
+  }
+
+  .list-group-header {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .drop-placeholder {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
 }
