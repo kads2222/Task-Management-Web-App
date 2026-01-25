@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import {
   DndContext,
   closestCorners,
@@ -13,12 +17,10 @@ import Modal from "./components/Form/index";
 import Select from "./components/Select/index";
 import "./App.css";
 
-//localstorage key for tasks and projects
 const TASKS_KEY = "tasks";
 const PROJECTS_KEY = "projects";
 
 function App() {
-  //tasks and projects and returns from the localstorage whenever the projectrenders
   const [tasks, setTasks] = useState(() => {
     const storedTasks = localStorage.getItem(TASKS_KEY);
     return storedTasks ? JSON.parse(storedTasks) : [];
@@ -28,24 +30,23 @@ function App() {
     return storedProjects ? JSON.parse(storedProjects) : ["Other"];
   });
 
-  //states used in controling UI changes in current view , form modal vibility and the task edit mode
   const [view, setView] = useState("list");
   const [modalType, setModalType] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  //configeration value for status , priority and sort used in filtering and sorting tasks
-  const status = ["Not Started", "In Progress", "Done"];
-  const priority = ["High", "Medium", "Low"];
-  const sort = ["date", "priority", "status"];
+  const priorityOptions = ["High", "Medium", "Low"];
+  const sortOptions = ["date", "priority", "status"];
 
-  //search filtering and sorrting states
   const [search, setSearch] = useState("");
   const [filterProject, setFilterProject] = useState("All");
-  const [filterStatus, setFilterStatus] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("date");
 
-  //save tasks and projects in the localstorage whenever they are updated
+  const [tempProject, setTempProject] = useState("All");
+  const [tempPriority, setTempPriority] = useState("All");
+  const [tempSort, setTempSort] = useState("date");
+
   useEffect(() => {
     localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks]);
@@ -54,24 +55,31 @@ function App() {
     localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
   }, [projects]);
 
-  //handles adding new tasks
-  const handleAddTask = (task) => setTasks((prev) => [...prev, task]);
+  useEffect(() => {
+    if (isSidebarOpen) {
+      setTempProject(filterProject);
+      setTempPriority(filterPriority);
+      setTempSort(sortBy);
+    }
+  }, [isSidebarOpen, filterProject, filterPriority, sortBy]);
 
-  //handles adding new project
+  const handleApplyFilters = () => {
+    setFilterProject(tempProject);
+    setFilterPriority(tempPriority);
+    setSortBy(tempSort);
+    setIsSidebarOpen(false);
+  };
+
+  const handleAddTask = (task) => setTasks((prev) => [...prev, task]);
   const handleAddProject = (project) =>
     !projects.includes(project) && setProjects((prev) => [...prev, project]);
 
-  //handles updating an existing task
   const handleUpdateTask = (updatedTask) =>
-    setTasks((prev) =>
-      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
-    );
+    setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
 
-  //handles deleting an existing task
   const handleDeleteTask = (id) =>
     setTasks((prev) => prev.filter((task) => task.id !== id));
 
-  //handles the modal open is for create task or update task
   const openCreateTask = () => {
     setEditingTask(null);
     setModalType("task");
@@ -82,11 +90,8 @@ function App() {
     setModalType("task");
   };
 
-  //changes the view of the tasks to list and kanban based on the button clicks
-  const toggleView = () =>
-    setView((prev) => (prev === "list" ? "kanban" : "list"));
+  const toggleView = () => setView((prev) => (prev === "list" ? "kanban" : "list"));
 
-  //filter tasks based on the project , status , priority and sort based on the date , prority and status
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
     .filter((t) => filterProject === "All" || t.project === filterProject)
@@ -97,31 +102,61 @@ function App() {
       return 0;
     });
 
-  //drag and drop sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor)
-  );
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
 
-  //drag and drop handler updates status of tasks when tasks are moves to a different status
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
-
-    const taskId = active.id;
-    const newStatus = over.id;
-
     setTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
+      prev.map((t) => (t.id === active.id ? { ...t, status: over.id } : t))
     );
   };
 
   return (
-    <div className="app-layout">
+    <>
       <div className="container">
-        <h1>Task Management System</h1>
+        <header className="header">
+          <button className="hamburger-btn" onClick={() => setIsSidebarOpen(true)}>
+            <MenuIcon />
+          </button>
+          <h1 className="title">Task Management System</h1>
+        </header>
 
-        {/* Search, filters, and view controls */}
+        <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+          <div className="sidebar-header">
+            <h2>Filters</h2>
+            <button className="close-btn" onClick={() => setIsSidebarOpen(false)}>
+              <CloseIcon style={{ color: "white" }} />
+            </button>
+          </div>
+
+          <div className="sidebar-content">
+            <Select
+              value={tempProject}
+              onChange={setTempProject}
+              options={projects}
+              defaultLabel="All Projects"
+              isSidebar
+            />
+            <Select
+              value={tempPriority}
+              onChange={setTempPriority}
+              options={priorityOptions}
+              defaultLabel="All Priority"
+              isSidebar
+            />
+            <Select 
+              value={tempSort} 
+              onChange={setTempSort} 
+              options={sortOptions} 
+              isSidebar 
+            />
+            <button className="apply-btn" onClick={handleApplyFilters}>
+              Apply Filters
+            </button>
+          </div>
+        </aside>
+
         <div className="controls">
           <input
             className="searchbar"
@@ -139,54 +174,34 @@ function App() {
             <Select
               value={filterPriority}
               onChange={setFilterPriority}
-              options={priority}
+              options={priorityOptions}
               defaultLabel="All Priority"
             />
-            <Select value={sortBy} onChange={setSortBy} options={sort} />
+            <Select value={sortBy} onChange={setSortBy} options={sortOptions} />
           </div>
-
           <button onClick={toggleView} className="view-mode-btn">
-            {view === "list" ? "Kanban Mode" : "List Mode"}
+            {view === "list" ? (
+              <ViewKanbanIcon fontSize="large" />
+            ) : (
+              <FormatListBulletedIcon fontSize="large" />
+            )}
           </button>
         </div>
 
-        {/* Primary actions */}
         <div className="buttons">
-          <button className="button" onClick={openCreateTask}>
-            Add Task
-          </button>
-          <button className="button" onClick={() => setModalType("project")}>
-            Add Project
-          </button>
+          <button className="button" onClick={openCreateTask}>Add Task</button>
+          <button className="button" onClick={() => setModalType("project")}>Add Project</button>
         </div>
       </div>
 
-       {/* Task rendering with drag-and-drop support */}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragEnd={handleDragEnd}
-      >
+      <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
         {view === "list" ? (
-
-          //list view rendering
-          <ListView
-            tasks={filteredTasks}
-            onEdit={openEditTask}
-            onDelete={handleDeleteTask}
-          />
+          <ListView tasks={filteredTasks} onEdit={openEditTask} onDelete={handleDeleteTask} />
         ) : (
-
-          //kanban view rendering
-          <KanbanView
-            tasks={filteredTasks}
-            onEdit={openEditTask}
-            onDelete={handleDeleteTask}
-          />
+          <KanbanView tasks={filteredTasks} onEdit={openEditTask} onDelete={handleDeleteTask} />
         )}
       </DndContext>
 
-      {/* Shared modal for creating and editing tasks/projects */}
       {modalType && (
         <Modal
           type={modalType}
@@ -202,7 +217,7 @@ function App() {
           onClose={() => setModalType(null)}
         />
       )}
-    </div>
+    </>
   );
 }
 
