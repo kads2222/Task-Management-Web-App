@@ -1,100 +1,42 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 1000;
-  padding: 1.6rem;
+.responsive-modal .MuiPaper-root {
+  border-radius: 16px;
+  margin: 16px;
+  transition: all 0.3s ease;
 }
 
-.modal {
-  background: #ffffff;
-  width: 100%;
-  max-width: 440px;
-  padding: 2.4rem;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  animation: fadeIn 0.25s ease;
+@media (max-width: 1024px) {
+  .responsive-modal .MuiPaper-root {
+    max-width: 400px; 
+  }
 }
 
-.title {
-  margin-bottom: 1.8rem;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #111827;
+@media (max-width: 600px) {
+  .responsive-modal .MuiPaper-root {
+    margin: 12px;
+    width: 100%;
+  }
+
+  .responsive-modal .MuiDialogActions-root {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .responsive-modal .MuiDialogActions-root button {
+    width: 100%;
+  }
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 1.4rem;
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.input {
-  height: 2.4rem;
-}
-
-.select {
-  width: 100%;
-  padding: 1.2rem 1.4rem;
-}
-
-.input,
-.select {
-  min-height: 4.4rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 1.6rem;
-  background-color: #ffffff;
-}
-
-.select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%236b7280' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1.4rem center;
-  background-size: 1.8rem;
-}
-
-.input:focus,
-.select:focus {
-  outline: none;
-  border-color: blue;
-}
-
-.error {
-  color: #dc2626;
-  font-size: 1.2rem;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.primaryBtn {
-  background: blue;
-  color: white;
-  border: none;
-  padding: 1rem 1.8rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.secondaryBtn {
-  background: transparent;
-  border: 1px solid #d1d5db;
-  padding: 1rem 1.8rem;
-  border-radius: 8px;
-  cursor: pointer;
+.responsive-modal .MuiDialog-container {
+  animation: modalSlideUp 0.3s ease-out;
 }
