@@ -18,16 +18,11 @@ import Select from "./components/Select/index";
 import "./App.css";
 
 const TASKS_KEY = "tasks";
-const PROJECTS_KEY = "projects";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
     const storedTasks = localStorage.getItem(TASKS_KEY);
     return storedTasks ? JSON.parse(storedTasks) : [];
-  });
-  const [projects, setProjects] = useState(() => {
-    const storedProjects = localStorage.getItem(PROJECTS_KEY);
-    return storedProjects ? JSON.parse(storedProjects) : ["Other"];
   });
 
   const [view, setView] = useState("list");
@@ -39,11 +34,9 @@ function App() {
   const sortOptions = ["date", "priority", "status"];
 
   const [search, setSearch] = useState("");
-  const [filterProject, setFilterProject] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
   const [sortBy, setSortBy] = useState("date");
 
-  const [tempProject, setTempProject] = useState("All");
   const [tempPriority, setTempPriority] = useState("All");
   const [tempSort, setTempSort] = useState("date");
 
@@ -52,27 +45,19 @@ function App() {
   }, [tasks]);
 
   useEffect(() => {
-    localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
-  }, [projects]);
-
-  useEffect(() => {
     if (isSidebarOpen) {
-      setTempProject(filterProject);
       setTempPriority(filterPriority);
       setTempSort(sortBy);
     }
-  }, [isSidebarOpen, filterProject, filterPriority, sortBy]);
+  }, [isSidebarOpen, filterPriority, sortBy]);
 
   const handleApplyFilters = () => {
-    setFilterProject(tempProject);
     setFilterPriority(tempPriority);
     setSortBy(tempSort);
     setIsSidebarOpen(false);
   };
 
   const handleAddTask = (task) => setTasks((prev) => [...prev, task]);
-  const handleAddProject = (project) =>
-    !projects.includes(project) && setProjects((prev) => [...prev, project]);
 
   const handleUpdateTask = (updatedTask) =>
     setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
@@ -94,7 +79,6 @@ function App() {
 
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
-    .filter((t) => filterProject === "All" || t.project === filterProject)
     .filter((t) => filterPriority === "All" || t.priority === filterPriority)
     .sort((a, b) => {
       if (sortBy === "date") return new Date(a.date) - new Date(b.date);
@@ -132,13 +116,6 @@ function App() {
 
           <div className="sidebar-content">
             <Select
-              value={tempProject}
-              onChange={setTempProject}
-              options={projects}
-              defaultLabel="All Projects"
-              isSidebar
-            />
-            <Select
               value={tempPriority}
               onChange={setTempPriority}
               options={priorityOptions}
@@ -166,12 +143,6 @@ function App() {
           />
           <div className="control">
             <Select
-              value={filterProject}
-              onChange={setFilterProject}
-              options={projects}
-              defaultLabel="All Projects"
-            />
-            <Select
               value={filterPriority}
               onChange={setFilterPriority}
               options={priorityOptions}
@@ -190,7 +161,6 @@ function App() {
 
         <div className="buttons">
           <button className="button" onClick={openCreateTask}>Add Task</button>
-          <button className="button" onClick={() => setModalType("project")}>Add Project</button>
         </div>
       </div>
 
@@ -204,16 +174,8 @@ function App() {
 
       {modalType && (
         <Modal
-          type={modalType}
-          projects={projects}
           task={editingTask}
-          onSave={
-            modalType === "project"
-              ? handleAddProject
-              : editingTask
-              ? handleUpdateTask
-              : handleAddTask
-          }
+          onSave={editingTask ? handleUpdateTask : handleAddTask}
           onClose={() => setModalType(null)}
         />
       )}

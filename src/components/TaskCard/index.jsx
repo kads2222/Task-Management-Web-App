@@ -61,7 +61,6 @@ function TaskCard({ task, onEdit, onDelete, view }) {
           </div>
 
           <div className="kanban-footer">
-            <span className="project-text">{task.project}</span>
             {ActionButtons}
           </div>
         </div>
@@ -79,7 +78,6 @@ function TaskCard({ task, onEdit, onDelete, view }) {
             </span>
           </div>
           <div className="list-col date-text">{task.date}</div>
-          <div className="list-col project-text">{task.project}</div>
           <div className="list-col-actions">{ActionButtons}</div>
         </div>
       )}
