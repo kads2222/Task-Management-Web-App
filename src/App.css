@@ -3,12 +3,14 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 2rem;
+  font-family: "Poppins", sans-serif;
   background-color: #f9fafb;
   color: #111827;
 }
+
+/* ---------- Layout ---------- */
 
 .container {
   display: flex;
@@ -17,48 +19,133 @@ body {
   margin: 0 auto;
 }
 
-.header {
+.header,
+.sidebar-header,
+.controls,
+.buttons,
+.control,
+.sidebar-content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
 }
+
+.header,
+.sidebar-header,
+.controls {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-content,
+.container {
+  flex-direction: column;
+}
+
+/* ---------- Typography ---------- */
 
 .title {
   flex: 1;
   text-align: center;
   font-size: 4rem;
-  color: blue;
   font-weight: 700;
+  color: blue;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 2.4rem;
+}
+
+/* ---------- Buttons ---------- */
+
+.hamburger-btn,
+.close-btn,
+.view-mode-btn,
+.button,
+.apply-btn {
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hamburger-btn,
+.close-btn {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburger-btn {
-  display: none; 
-  background: none;
-  border: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
+  display: none;
   padding: 0.5rem;
 }
 
 .hamburger-btn svg {
-  color: blue;
   font-size: 3rem;
+  color: blue;
 }
+
+.view-mode-btn {
+  width: 4.2rem;
+  height: 4.2rem;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-mode-btn:hover {
+  background: #f3f4f6;
+  border-color: blue;
+  color: blue;
+}
+
+.button {
+  padding: 1.2rem 2.4rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  background-color: blue;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: #1e3a8a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.apply-btn {
+  margin-top: 1rem;
+  padding: 1.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  background-color: white;
+  color: blue;
+  border-radius: 8px;
+}
+
+.apply-btn:hover {
+  background-color: #f0f4ff;
+  transform: scale(1.02);
+}
+
+/* ---------- Sidebar ---------- */
 
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0 auto 0 0;
   height: 100%;
   width: 280px;
-  background-color: blue;
   padding: 2rem;
+  background-color: blue;
+  color: white;
   transform: translateX(-100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  color: white;
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -67,40 +154,24 @@ body {
 }
 
 .sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 3rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 1rem;
-}
-
-.sidebar-header h2 {
-  font-size: 2.4rem;
-  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-content {
-  display: flex;
-  flex-direction: column;
   gap: 2rem;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
+/* ---------- Controls ---------- */
 
 .controls {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   gap: 1.6rem;
   padding-bottom: 2rem;
+}
+
+.control {
+  gap: 1.5rem;
 }
 
 .searchbar {
@@ -118,95 +189,33 @@ body {
   box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
 }
 
-.control {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.view-mode-btn {
-  width: 4.2rem;
-  height: 4.2rem;
-  background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.view-mode-btn:hover {
-  background: #f3f4f6;
-  border-color: blue;
-  color: blue;
-}
-
-
-.buttons {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.button {
-  padding: 1.2rem 2.4rem;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: white;
-  background-color: blue;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.button:hover {
-  background-color: #1e3a8a;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.apply-btn {
-  margin-top: 1rem;
-  padding: 1.4rem;
-  background-color: white;
-  color: blue;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.6rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 2px;
-}
-
-.apply-btn:hover {
-  background-color: #f0f4ff;
-  transform: scale(1.02);
-}
+/* ---------- Utilities ---------- */
 
 .select-placeholder {
   opacity: 0.8;
 }
 
+/* ---------- Responsive ---------- */
 
+
+/*desktop full view minimum breakpoints */
 @media (min-width: 992px) {
   .sidebar {
     display: none;
   }
 }
-
+/*desktop half view breakpoints */
 @media (max-width: 991px) {
   .hamburger-btn {
     display: flex;
   }
 
   .control {
-    display: none; 
+    display: none;
   }
 }
 
+/*tablet view breakpoints */
 @media (max-width: 768px) {
   body {
     padding: 1.2rem;
@@ -235,15 +244,16 @@ body {
   }
 
   .sidebar {
-    width: 40%; 
+    width: 40%;
   }
 }
 
+/*mobile view breakpoints */
 @media (max-width: 480px) {
   .sidebar {
     width: 50%;
   }
-  
+
   .title {
     font-size: 2.2rem;
   }

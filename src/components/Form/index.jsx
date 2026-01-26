@@ -12,13 +12,25 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
+/* 
+  Modal Component
+  - displays a form to add or edit a task
+  - props:
+      - onClose: function to close the modal
+      - onSave: function to save task data
+      - task: optional existing task to edit
+*/
+
 function Modal({ onClose, onSave, task }) {
+
+  // state variables for form fields
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [status, setStatus] = useState("Not Started");
   const [error, setError] = useState("");
 
+  // populate form fields if editing an existing task
   useEffect(() => {
     if (task) {
       setTaskName(task.task);
@@ -28,6 +40,7 @@ function Modal({ onClose, onSave, task }) {
     }
   }, [task]);
 
+  // handles saving tasks
   const handleSaveTask = () => {
     if (!taskName || !date) {
       setError("Task name and date are required");
@@ -69,6 +82,7 @@ function Modal({ onClose, onSave, task }) {
       </DialogTitle>
 
       <DialogContent dividers sx={{ p: 3 }}>
+
         <Box
           component="form"
           sx={{
@@ -78,6 +92,7 @@ function Modal({ onClose, onSave, task }) {
             my: 1,
           }}
         >
+          {/* task name input */}
           <TextField
             label="What needs to be done?"
             variant="outlined"
@@ -91,6 +106,7 @@ function Modal({ onClose, onSave, task }) {
             helperText={!!error && !taskName ? "Task name is required" : ""}
           />
 
+          {/* due date input */}
           <TextField
             label="Due Date"
             type="date"
@@ -102,6 +118,7 @@ function Modal({ onClose, onSave, task }) {
             error={!!error && !date}
           />
 
+          {/* priority level input */}
           <TextField
             select
             label="Priority Level"
@@ -116,6 +133,7 @@ function Modal({ onClose, onSave, task }) {
             ))}
           </TextField>
 
+          {/* status input */}
           <TextField
             select
             label="Current Status"
@@ -129,7 +147,9 @@ function Modal({ onClose, onSave, task }) {
               </MenuItem>
             ))}
           </TextField>
+
         </Box>
+
       </DialogContent>
 
       <DialogActions sx={{ p: 2, justifyContent: "space-between" }}>
@@ -152,7 +172,8 @@ function Modal({ onClose, onSave, task }) {
             },
           }}
         >
-          {task ? "Update Task" : "Save Task"}
+          {/* save button view as if it is adding new add Task else if it is editing an existing task edit task */}
+          {task ? "Update Task" : "Add Task"}
         </Button>
       </DialogActions>
     </Dialog>

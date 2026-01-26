@@ -1,15 +1,23 @@
+/* scoped styles for task modal dialog */
 .responsive-modal .MuiPaper-root {
-  border-radius: 16px;
   margin: 16px;
+  border-radius: 16px;
   transition: all 0.3s ease;
 }
 
+/* entry animation for dialog */
+.responsive-modal .MuiDialog-container {
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+/* tablet view breakpoint */
 @media (max-width: 1024px) {
   .responsive-modal .MuiPaper-root {
-    max-width: 400px; 
+    max-width: 400px;
   }
 }
 
+/* mobile view breakpoint */
 @media (max-width: 600px) {
   .responsive-modal .MuiPaper-root {
     margin: 12px;
@@ -26,17 +34,15 @@
   }
 }
 
+/* modal open animation */
 @keyframes modalSlideUp {
   from {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-.responsive-modal .MuiDialog-container {
-  animation: modalSlideUp 0.3s ease-out;
 }

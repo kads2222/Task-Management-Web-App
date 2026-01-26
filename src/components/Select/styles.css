@@ -1,23 +1,30 @@
+/* ----------------- MUI Select Wrapper ----------------- */
 .mui-select-wrapper {
   width: 16rem;
 }
 
+/* ----------------- Sidebar Select ----------------- */
+.sidebar-select {
+  width: 100%;
+}
+
+/* Placeholder text color inside sidebar selects */
+.sidebar-select .select-placeholder {
+  color: white;
+}
+
+/* Responsive width adjustments for smaller screens */
+
+/* Half desktop and tablet breakpoint */
 @media (max-width: 900px) {
   .mui-select-wrapper {
     width: 14rem;
   }
 }
 
+/* Mobile breakpoint */
 @media (max-width: 600px) {
   .mui-select-wrapper {
     width: 100%;
   }
-}
-
-.sidebar-select {
-  width: 100%;
-}
-
-.sidebar-select .select-placeholder {
-  color: white;
 }

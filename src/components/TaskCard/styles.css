@@ -1,8 +1,10 @@
+/* ----------------- Root Variables ----------------- */
 :root {
   --primary-blue: rgb(0, 0, 255);
   --hover-blue: rgb(0, 0, 200);
 }
 
+/* ----------------- Draggable Task Item ----------------- */
 .draggable-item {
   list-style: none;
   touch-action: none;
@@ -10,36 +12,50 @@
   width: 100%;
 }
 
-.badge {
-  padding: 4px 12px;
-  min-width: 80px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+/* ----------------- Badges ----------------- */
+.badge,
+.card-kanban .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 999px;
+  font-weight: 600;
 }
 
-.low { background: #ecfdf5; color: #059669; }
-.medium { background: #fffbeb; color: #d97706; }
-.high { background: #fef2f2; color: #dc2626; }
-.notstarted { background: #f3f4f6; color: #4b5563; }
-.inprogress { background: #eff6ff; color: #2563eb; }
-.done { background: #f0fdf4; color: #16a34a; }
+.badge {
+  padding: 4px 12px;
+  min-width: 80px;
+  font-size: 0.75rem;
+}
 
+.card-kanban .badge {
+  padding: 2px 8px;
+  min-width: 65px;
+  font-size: 0.7rem;
+}
+
+/* Priority / Status Color Variants */
+.low       { background: #ecfdf5; color: #059669; }
+.medium    { background: #fffbeb; color: #d97706; }
+.high      { background: #fef2f2; color: #dc2626; }
+.notstarted{ background: #f3f4f6; color: #4b5563; }
+.inprogress{ background: #eff6ff; color: #2563eb; }
+.done      { background: #f0fdf4; color: #16a34a; }
+
+/* ----------------- Task Text ----------------- */
 .task-name { font-weight: 600; color: #111827; }
 .date-text { color: #6b7280; }
 
+/* ----------------- Task Actions ----------------- */
 .task-actions {
   display: flex;
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
 }
 
-.editbtn, .deletebtn {
+.editbtn,
+.deletebtn {
   border: none;
-  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
@@ -49,24 +65,25 @@
 .editbtn { background-color: #f3f4f6; color: #111827; }
 .deletebtn { background-color: #fee2e2; color: #ef4444; }
 
+/* ----------------- Kanban Card ----------------- */
 .card-kanban {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   background: white;
   padding: 1rem;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  width: 92%;           
-  max-width: 280px;    
-  margin: 0 auto;       
-  gap: 10px;
+  width: 92%;
+  max-width: 280px;
+  margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .card-kanban .task-name { font-size: 0.95rem; line-height: 1.2; }
 .card-kanban .date-text { font-size: 0.75rem; }
-.card-kanban .badge { padding: 2px 8px; min-width: 65px; font-size: 0.7rem; }
 
+/* ----------------- Kanban Row & Footer ----------------- */
 .kanban-row {
   display: flex;
   justify-content: space-between;
@@ -82,30 +99,43 @@
   border-top: 1px solid #f3f4f6;
 }
 
+/* ----------------- List Card ----------------- */
 .card-list {
   display: flex;
   flex-direction: column;
+  gap: 12px;
   background: white;
   padding: 1rem;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  gap: 12px;
 }
 
-.list-main-info { display: flex; justify-content: space-between; align-items: center; }
-.list-badges { display: flex; gap: 8px; }
+.list-main-info,
+.list-badges,
 .list-col-actions {
   display: flex;
+  align-items: center;
+}
+
+.list-main-info { justify-content: space-between; }
+.list-badges { gap: 8px; }
+.list-col-actions {
   justify-content: flex-end;
   border-top: 1px solid #f3f4f6;
   padding-top: 10px;
 }
 
+/* ----------------- Modal Styles ----------------- */
 .responsive-modal .MuiPaper-root {
   border-radius: 16px;
   margin: 16px;
 }
 
+.responsive-modal .MuiDialog-container {
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+/* ----------------- Add Task Button ----------------- */
 .add-task-btn {
   background-color: var(--primary-blue) !important;
   color: white !important;
@@ -114,6 +144,9 @@
   border-radius: 8px !important;
 }
 
+/* ----------------- Responsive Breakpoints ----------------- */
+
+/* Half Desktop and tablet view */
 @media (min-width: 768px) {
   .card-list {
     flex-direction: row;
@@ -124,18 +157,21 @@
   .list-main-info { flex: 2; justify-content: flex-start; gap: 20px; }
   .list-badges { flex: 1.5; justify-content: flex-start; }
   .list-col-actions { flex: 0; border-top: none; padding-top: 0; }
-  
+
   .task-name { font-size: 1.1rem; }
 }
 
+/* Mobile view */
 @media (max-width: 600px) {
   .card-kanban {
-    max-width: 240px; 
+    max-width: 240px;
     padding: 0.75rem;
   }
 
   .card-kanban .task-actions { gap: 4px; }
-  .card-kanban .editbtn, .card-kanban .deletebtn {
+
+  .card-kanban .editbtn,
+  .card-kanban .deletebtn {
     padding: 4px 8px;
     font-size: 0.7rem;
   }
@@ -151,11 +187,8 @@
   }
 }
 
+/* ----------------- Modal Animation ----------------- */
 @keyframes modalSlideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
-}
-
-.responsive-modal .MuiDialog-container {
-  animation: modalSlideUp 0.3s ease-out;
 }
