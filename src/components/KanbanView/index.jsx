@@ -13,7 +13,6 @@ import "./styles.css";
 */
 
 function KanbanColumn({ status, tasks, onEdit, onDelete }) {
-
   // register this column as a drop target using the status as its ID
   const { setNodeRef } = useDroppable({ id: status });
 

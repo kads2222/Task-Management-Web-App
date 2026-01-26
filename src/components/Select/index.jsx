@@ -13,7 +13,9 @@ import "./styles.css";
 */
 function Select({ value, onChange, options, defaultLabel, isSidebar }) {
   return (
-    <FormControl className={`mui-select-wrapper ${isSidebar ? "sidebar-select" : ""}`}>
+    <FormControl
+      className={`mui-select-wrapper ${isSidebar ? "sidebar-select" : ""}`}
+    >
       <MuiSelect
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -21,7 +23,11 @@ function Select({ value, onChange, options, defaultLabel, isSidebar }) {
         renderValue={(selected) => {
           // show placeholder if value is empty or "All"
           if (selected === "All" || !selected) {
-            return <span className="select-placeholder">{defaultLabel || "Select"}</span>;
+            return (
+              <span className="select-placeholder">
+                {defaultLabel || "Select"}
+              </span>
+            );
           }
           return selected;
         }}
@@ -75,7 +81,10 @@ function Select({ value, onChange, options, defaultLabel, isSidebar }) {
               backgroundColor: isSidebar ? "blue" : "#fff",
               color: isSidebar ? "white" : "black",
               "&:hover": { backgroundColor: "#3b82f6", color: "white" },
-              "&.Mui-selected": { backgroundColor: "white !important", color: "blue" },
+              "&.Mui-selected": {
+                backgroundColor: "white !important",
+                color: "blue",
+              },
             }}
           >
             {defaultLabel}
@@ -92,7 +101,10 @@ function Select({ value, onChange, options, defaultLabel, isSidebar }) {
               backgroundColor: isSidebar ? "blue" : "#fff",
               color: isSidebar ? "white" : "black",
               "&:hover": { backgroundColor: "#3b82f6", color: "white" },
-              "&.Mui-selected": { backgroundColor: "white !important", color: "blue" },
+              "&.Mui-selected": {
+                backgroundColor: "white !important",
+                color: "blue",
+              },
             }}
           >
             {opt}

@@ -21,7 +21,6 @@ import "./App.css";
 const TASKS_KEY = "tasks";
 
 function App() {
-
   //data for filtering and sorting
   const priorityOptions = ["High", "Medium", "Low"];
   const sortOptions = ["date", "priority", "status"];
@@ -31,13 +30,13 @@ function App() {
     const storedTasks = localStorage.getItem(TASKS_KEY);
     return storedTasks ? JSON.parse(storedTasks) : [];
   });
-  
+
   //UI states
   const [view, setView] = useState("list");
   const [modalType, setModalType] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   //search , filter and sort states
   const [search, setSearch] = useState("");
   const [filterPriority, setFilterPriority] = useState("All");
@@ -57,8 +56,8 @@ function App() {
       setTempSort(sortBy);
     }
   }, [isSidebarOpen, filterPriority, sortBy]);
-  
-  //handle apply filters in the sidebar 
+
+  //handle apply filters in the sidebar
   const handleApplyFilters = () => {
     setFilterPriority(tempPriority);
     setSortBy(tempSort);
@@ -70,9 +69,11 @@ function App() {
 
   //handles updating existing tasks
   const handleUpdateTask = (updatedTask) =>
-    setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
 
-  //handles deleting tasks   
+  //handles deleting tasks
   const handleDeleteTask = (id) =>
     setTasks((prev) => prev.filter((task) => task.id !== id));
 
@@ -88,8 +89,9 @@ function App() {
   };
 
   //toggle between list and kanban views
-  const toggleView = () => setView((prev) => (prev === "list" ? "kanban" : "list"));
- 
+  const toggleView = () =>
+    setView((prev) => (prev === "list" ? "kanban" : "list"));
+
   //filtering and sorting tasks based on user input
   const filteredTasks = tasks
     .filter((t) => t.task.toLowerCase().includes(search.toLowerCase()))
@@ -100,8 +102,11 @@ function App() {
       return 0;
     });
 
-  //drag and drop sensors  
-  const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
+  //drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor)
+  );
 
   //handle drag end event to update task status
   const handleDragEnd = (event) => {
@@ -116,7 +121,10 @@ function App() {
     <>
       <div className="container">
         <header className="header">
-          <button className="hamburger-btn" onClick={() => setIsSidebarOpen(true)}>
+          <button
+            className="hamburger-btn"
+            onClick={() => setIsSidebarOpen(true)}
+          >
             <MenuIcon />
           </button>
           <h1 className="title">Task Management System</h1>
@@ -126,7 +134,10 @@ function App() {
         <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
           <div className="sidebar-header">
             <h2>Filters</h2>
-            <button className="close-btn" onClick={() => setIsSidebarOpen(false)}>
+            <button
+              className="close-btn"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               <CloseIcon style={{ color: "white" }} />
             </button>
           </div>
@@ -139,11 +150,11 @@ function App() {
               defaultLabel="All Priority"
               isSidebar
             />
-            <Select 
-              value={tempSort} 
-              onChange={setTempSort} 
-              options={sortOptions} 
-              isSidebar 
+            <Select
+              value={tempSort}
+              onChange={setTempSort}
+              options={sortOptions}
+              isSidebar
             />
             <button className="apply-btn" onClick={handleApplyFilters}>
               Apply Filters
@@ -181,20 +192,32 @@ function App() {
 
         {/* add task button */}
         <div className="buttons">
-          <button className="button" onClick={openCreateTask}>Add Task</button>
+          <button className="button" onClick={openCreateTask}>
+            Add Task
+          </button>
         </div>
       </div>
 
       {/* drag and drop context */}
-      <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragEnd={handleDragEnd}
+      >
         {view === "list" ? (
-
           //render list view
-          <ListView tasks={filteredTasks} onEdit={openEditTask} onDelete={handleDeleteTask} />
+          <ListView
+            tasks={filteredTasks}
+            onEdit={openEditTask}
+            onDelete={handleDeleteTask}
+          />
         ) : (
-
           //render kanban view
-          <KanbanView tasks={filteredTasks} onEdit={openEditTask} onDelete={handleDeleteTask} />
+          <KanbanView
+            tasks={filteredTasks}
+            onEdit={openEditTask}
+            onDelete={handleDeleteTask}
+          />
         )}
       </DndContext>
 

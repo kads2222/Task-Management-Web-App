@@ -35,16 +35,39 @@
 }
 
 /* Priority / Status Color Variants */
-.low       { background: #ecfdf5; color: #059669; }
-.medium    { background: #fffbeb; color: #d97706; }
-.high      { background: #fef2f2; color: #dc2626; }
-.notstarted{ background: #f3f4f6; color: #4b5563; }
-.inprogress{ background: #eff6ff; color: #2563eb; }
-.done      { background: #f0fdf4; color: #16a34a; }
+.low {
+  background: #ecfdf5;
+  color: #059669;
+}
+.medium {
+  background: #fffbeb;
+  color: #d97706;
+}
+.high {
+  background: #fef2f2;
+  color: #dc2626;
+}
+.notstarted {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+.inprogress {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.done {
+  background: #f0fdf4;
+  color: #16a34a;
+}
 
 /* ----------------- Task Text ----------------- */
-.task-name { font-weight: 600; color: #111827; }
-.date-text { color: #6b7280; }
+.task-name {
+  font-weight: 600;
+  color: #111827;
+}
+.date-text {
+  color: #6b7280;
+}
 
 /* ----------------- Task Actions ----------------- */
 .task-actions {
@@ -62,8 +85,14 @@
   font-size: 0.85rem;
 }
 
-.editbtn { background-color: #f3f4f6; color: #111827; }
-.deletebtn { background-color: #fee2e2; color: #ef4444; }
+.editbtn {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+.deletebtn {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
 
 /* ----------------- Kanban Card ----------------- */
 .card-kanban {
@@ -77,11 +106,16 @@
   width: 92%;
   max-width: 280px;
   margin: 0 auto;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.card-kanban .task-name { font-size: 0.95rem; line-height: 1.2; }
-.card-kanban .date-text { font-size: 0.75rem; }
+.card-kanban .task-name {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+.card-kanban .date-text {
+  font-size: 0.75rem;
+}
 
 /* ----------------- Kanban Row & Footer ----------------- */
 .kanban-row {
@@ -117,8 +151,12 @@
   align-items: center;
 }
 
-.list-main-info { justify-content: space-between; }
-.list-badges { gap: 8px; }
+.list-main-info {
+  justify-content: space-between;
+}
+.list-badges {
+  gap: 8px;
+}
 .list-col-actions {
   justify-content: flex-end;
   border-top: 1px solid #f3f4f6;
@@ -154,11 +192,24 @@
     justify-content: space-between;
   }
 
-  .list-main-info { flex: 2; justify-content: flex-start; gap: 20px; }
-  .list-badges { flex: 1.5; justify-content: flex-start; }
-  .list-col-actions { flex: 0; border-top: none; padding-top: 0; }
+  .list-main-info {
+    flex: 2;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .list-badges {
+    flex: 1.5;
+    justify-content: flex-start;
+  }
+  .list-col-actions {
+    flex: 0;
+    border-top: none;
+    padding-top: 0;
+  }
 
-  .task-name { font-size: 1.1rem; }
+  .task-name {
+    font-size: 1.1rem;
+  }
 }
 
 /* Mobile view */
@@ -168,7 +219,9 @@
     padding: 0.75rem;
   }
 
-  .card-kanban .task-actions { gap: 4px; }
+  .card-kanban .task-actions {
+    gap: 4px;
+  }
 
   .card-kanban .editbtn,
   .card-kanban .deletebtn {
@@ -189,6 +242,12 @@
 
 /* ----------------- Modal Animation ----------------- */
 @keyframes modalSlideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

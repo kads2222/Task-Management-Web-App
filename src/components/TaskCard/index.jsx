@@ -16,11 +16,12 @@ import "./styles.css";
 */
 function TaskCard({ task, onEdit, onDelete, view }) {
   // setup draggable functionality
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: task.id,
-    // attach task data for drop handling
-    data: { task }, 
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task.id,
+      // attach task data for drop handling
+      data: { task },
+    });
 
   // inline style for drag movement and feedback
   const style = {
@@ -31,16 +32,19 @@ function TaskCard({ task, onEdit, onDelete, view }) {
 
   // convert task status to CSS class
   const statusClass = (status) =>
-    status === "Done" ? "done" : status === "In Progress" ? "inprogress" : "notstarted";
+    status === "Done"
+      ? "done"
+      : status === "In Progress"
+      ? "inprogress"
+      : "notstarted";
 
   // action buttons shared between Kanban and List views
   const ActionButtons = (
     <div className="task-actions">
       <button
         className="editbtn"
-
         // prevent drag start when clicking
-        onPointerDown={(e) => e.stopPropagation()} 
+        onPointerDown={(e) => e.stopPropagation()}
         onClick={() => onEdit(task)}
       >
         Edit
@@ -57,14 +61,14 @@ function TaskCard({ task, onEdit, onDelete, view }) {
 
   return (
     <li
-    // connect to drag system
-      ref={setNodeRef} 
+      // connect to drag system
+      ref={setNodeRef}
       // apply drag styles
-      style={style}       
+      style={style}
       // accessibility & drag attributes
-      {...attributes} 
-      // mouse/touch listeners     
-      {...listeners}       
+      {...attributes}
+      // mouse/touch listeners
+      {...listeners}
       className="dragga ble-item"
     >
       {/* kanban view */}
@@ -86,9 +90,7 @@ function TaskCard({ task, onEdit, onDelete, view }) {
             </div>
           </div>
 
-          <div className="kanban-footer">
-            {ActionButtons}
-          </div>
+          <div className="kanban-footer">{ActionButtons}</div>
         </div>
       ) : (
         /* list View */

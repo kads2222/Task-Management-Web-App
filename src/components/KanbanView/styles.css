@@ -1,14 +1,6 @@
-/* ----------------- Shared Flex Utilities ----------------- */
-.kanban-board,
-.kanban-column-wrapper,
-.kanban-column,
-.column-content {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ----------------- Kanban Board ----------------- */
+/* ----------Kanban Board Layout ----------*/
 .kanban-board {
+  display: flex;
   gap: 1rem;
   padding: 1rem;
   overflow-x: auto;
@@ -18,18 +10,20 @@
   min-height: calc(100vh - 250px);
 }
 
+/* Hide horizontal scrollbar */
 .kanban-board::-webkit-scrollbar {
   display: none;
 }
 
-/* ----------------- Kanban Column Wrapper ----------------- */
+/* Column wrapper layout */
 .kanban-column-wrapper {
-  min-width: 85vw;
+  display: flex;
   justify-content: center;
+  min-width: 85vw;
   scroll-snap-align: center;
 }
 
-/* ----------------- Kanban Column ----------------- */
+/* Kanban column styling */
 .kanban-column {
   width: 100%;
   max-width: 320px;
@@ -37,10 +31,14 @@
   border-radius: 16px;
   padding: 1.25rem;
   border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
   max-height: 70vh;
   overflow-y: auto;
 }
 
+/* Column header */
 .kanban-column h3 {
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
@@ -51,11 +49,14 @@
   text-align: center;
 }
 
-/* ----------------- Column Content & Empty Placeholder ----------------- */
+/* Column content layout */
 .column-content {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
+/* Placeholder when column is empty */
 .kanban-empty-placeholder {
   padding: 2rem;
   text-align: center;
@@ -65,9 +66,7 @@
   font-size: 0.85rem;
 }
 
-/* ----------------- Responsive Breakpoints ----------------- */
-
-/* minimum desktop breakpoint */
+/*----------Responsive: Desktop (>=1200px)---------- */
 @media (min-width: 1200px) {
   .kanban-board {
     overflow-x: hidden;
@@ -85,7 +84,7 @@
   }
 }
 
-/* tablet view breakpoints */
+/* Tabllet responsive*/
 @media (min-width: 600px) and (max-width: 1199px) {
   .kanban-column-wrapper {
     min-width: 50vw;

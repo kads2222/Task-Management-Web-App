@@ -13,7 +13,6 @@ import "./styles.css";
 */
 
 function StatusGroup({ status, tasks, onEdit, onDelete }) {
-
   // Setting up droppable area for the status group
   const { setNodeRef } = useDroppable({ id: status });
 
@@ -34,15 +33,12 @@ function StatusGroup({ status, tasks, onEdit, onDelete }) {
         </ul>
 
         {tasks.length === 0 && (
-          <div className="drop-placeholder">
-            Drop tasks here
-          </div>
+          <div className="drop-placeholder">Drop tasks here</div>
         )}
       </div>
     </div>
   );
 }
-
 
 /* 
   ListView Component

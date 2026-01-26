@@ -22,7 +22,6 @@ import CloseIcon from "@mui/icons-material/Close";
 */
 
 function Modal({ onClose, onSave, task }) {
-
   // state variables for form fields
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
@@ -82,7 +81,6 @@ function Modal({ onClose, onSave, task }) {
       </DialogTitle>
 
       <DialogContent dividers sx={{ p: 3 }}>
-
         <Box
           component="form"
           sx={{
@@ -147,9 +145,7 @@ function Modal({ onClose, onSave, task }) {
               </MenuItem>
             ))}
           </TextField>
-
         </Box>
-
       </DialogContent>
 
       <DialogActions sx={{ p: 2, justifyContent: "space-between" }}>
@@ -166,9 +162,9 @@ function Modal({ onClose, onSave, task }) {
             borderRadius: "8px",
             textTransform: "none",
             fontWeight: 600,
-            backgroundColor: "rgb(0, 0, 255)", 
+            backgroundColor: "rgb(0, 0, 255)",
             "&:hover": {
-              backgroundColor: "rgb(0, 0, 200)", 
+              backgroundColor: "rgb(0, 0, 200)",
             },
           }}
         >
