@@ -31,6 +31,7 @@ function TaskCard({ task, onEdit, onDelete, view }) {
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.5 : 1,
     cursor: isDragging ? "grabbing" : "grab",
+    zIndex: isDragging ? 9999 : "auto",
   };
 
   // convert task status to CSS class
@@ -47,7 +48,6 @@ function TaskCard({ task, onEdit, onDelete, view }) {
       <Tooltip title="Edit task">
         <IconButton
           size="medium"
-          // prevent drag start when clicking
           onPointerDown={(e) => e.stopPropagation()}
           onClick={() => onEdit(task)}
           aria-label="edit task"
@@ -72,17 +72,12 @@ function TaskCard({ task, onEdit, onDelete, view }) {
 
   return (
     <li
-      // connect to drag system
       ref={setNodeRef}
-      // apply drag styles
       style={style}
-      // accessibility & drag attributes
       {...attributes}
-      // mouse/touch listeners
       {...listeners}
-      className="dragga ble-item"
+      className="draggable-item"
     >
-      {/* kanban view */}
       {view === "kanban" ? (
         <div className="card-kanban">
           <div className="kanban-row">
@@ -104,7 +99,6 @@ function TaskCard({ task, onEdit, onDelete, view }) {
           <div className="kanban-footer">{ActionButtons}</div>
         </div>
       ) : (
-        /* list View */
         <div className="card-list">
           <div className="list-main-info">
             <div className="list-col task-name">{task.task}</div>

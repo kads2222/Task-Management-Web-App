@@ -10,11 +10,13 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragOverlay,
 } from "@dnd-kit/core";
 import ListView from "./components/ListView/index";
 import KanbanView from "./components/KanbanView/index";
 import Modal from "./components/Form/index";
 import Select from "./components/Select/index";
+import TaskCard from "./components/TaskCard";
 import "./App.css";
 
 //key for localStorage
@@ -43,6 +45,8 @@ function App() {
   const [sortBy, setSortBy] = useState("date");
   const [tempPriority, setTempPriority] = useState("All");
   const [tempSort, setTempSort] = useState("date");
+
+  const [activeTask, setActiveTask] = useState(null);
 
   // persist tasks to localStorage
   useEffect(() => {
@@ -111,10 +115,15 @@ function App() {
   //handle drag end event to update task status
   const handleDragEnd = (event) => {
     const { active, over } = event;
+    setActiveTask(null);
     if (!over) return;
     setTasks((prev) =>
       prev.map((t) => (t.id === active.id ? { ...t, status: over.id } : t))
     );
+  };
+
+  const handleDragStart = (event) => {
+    setActiveTask(event.active.data.current.task);
   };
 
   return (
@@ -130,7 +139,6 @@ function App() {
           <h1 className="title">Task Management System</h1>
         </header>
 
-        {/* mobile view sidebar for filtering and sorting */}
         <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
           <div className="sidebar-header">
             <h2>Filters</h2>
@@ -163,7 +171,6 @@ function App() {
           </div>
         </aside>
 
-        {/* desktop view controls */}
         <div className="controls">
           <input
             className="searchbar"
@@ -181,7 +188,6 @@ function App() {
             <Select value={sortBy} onChange={setSortBy} options={sortOptions} />
           </div>
 
-          {/* view mode toggle button between kanban and list views */}
           <button onClick={toggleView} className="view-mode-btn">
             {view === "list" ? (
               <ViewKanbanIcon fontSize="large" />
@@ -191,7 +197,6 @@ function App() {
           </button>
         </div>
 
-        {/* add task button */}
         <div className="buttons">
           <button className="button" onClick={openCreateTask}>
             Add Task
@@ -199,30 +204,38 @@ function App() {
         </div>
       </div>
 
-      {/* drag and drop context */}
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
         {view === "list" ? (
-          //render list view
           <ListView
             tasks={filteredTasks}
             onEdit={openEditTask}
             onDelete={handleDeleteTask}
           />
         ) : (
-          //render kanban view
           <KanbanView
             tasks={filteredTasks}
             onEdit={openEditTask}
             onDelete={handleDeleteTask}
           />
         )}
+
+        <DragOverlay>
+          {activeTask ? (
+            <TaskCard
+              task={activeTask}
+              onEdit={() => {}}
+              onDelete={() => {}}
+              view={view}
+            />
+          ) : null}
+        </DragOverlay>
       </DndContext>
 
-      {/* modal for adding/editing tasks */}
       {modalType && (
         <Modal
           task={editingTask}
