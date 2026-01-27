@@ -21,6 +21,9 @@
   justify-content: center;
   min-width: 85vw;
   scroll-snap-align: center;
+
+  /* make all columns stretch to same height */
+  align-items: stretch;
 }
 
 /* Kanban column styling */
@@ -33,8 +36,12 @@
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  height: fit-content;
-  max-height: 70vh;
+
+  /* make all columns same height */
+  height: 100%;
+  max-height: none;
+
+  /* allow scroll if content exceeds column height */
   overflow-y: auto;
 }
 
@@ -84,7 +91,7 @@
   }
 }
 
-/* Tabllet responsive*/
+/* Tablet responsive */
 @media (min-width: 600px) and (max-width: 1199px) {
   .kanban-column-wrapper {
     min-width: 50vw;
