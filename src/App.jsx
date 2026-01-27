@@ -150,6 +150,7 @@ function App() {
               defaultLabel="All Priority"
               isSidebar
             />
+            <h2>Sorting</h2>
             <Select
               value={tempSort}
               onChange={setTempSort}
@@ -157,7 +158,7 @@ function App() {
               isSidebar
             />
             <button className="apply-btn" onClick={handleApplyFilters}>
-              Apply Filters
+              Apply
             </button>
           </div>
         </aside>

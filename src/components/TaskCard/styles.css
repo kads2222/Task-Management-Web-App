@@ -4,6 +4,11 @@
   --hover-blue: rgb(0, 0, 200);
 }
 
+/* ----------------- Global Font Size ----------------- */
+* {
+  font-size: 1.5rem;
+}
+
 /* ----------------- Draggable Task Item ----------------- */
 .draggable-item {
   list-style: none;
@@ -25,13 +30,11 @@
 .badge {
   padding: 4px 12px;
   min-width: 80px;
-  font-size: 0.75rem;
 }
 
 .card-kanban .badge {
   padding: 2px 8px;
   min-width: 65px;
-  font-size: 0.7rem;
 }
 
 /* Priority / Status Color Variants */
@@ -82,16 +85,6 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.85rem;
-}
-
-.editbtn {
-  background-color: #f3f4f6;
-  color: #111827;
-}
-.deletebtn {
-  background-color: #fee2e2;
-  color: #ef4444;
 }
 
 /* ----------------- Kanban Card ----------------- */
@@ -107,14 +100,6 @@
   max-width: 280px;
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.card-kanban .task-name {
-  font-size: 0.95rem;
-  line-height: 1.2;
-}
-.card-kanban .date-text {
-  font-size: 0.75rem;
 }
 
 /* ----------------- Kanban Row & Footer ----------------- */
@@ -206,10 +191,6 @@
     border-top: none;
     padding-top: 0;
   }
-
-  .task-name {
-    font-size: 1.1rem;
-  }
 }
 
 /* Mobile view */
@@ -221,12 +202,6 @@
 
   .card-kanban .task-actions {
     gap: 4px;
-  }
-
-  .card-kanban .editbtn,
-  .card-kanban .deletebtn {
-    padding: 4px 8px;
-    font-size: 0.7rem;
   }
 
   .responsive-modal .MuiDialogActions-root {

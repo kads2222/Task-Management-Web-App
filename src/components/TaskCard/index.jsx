@@ -1,5 +1,8 @@
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { IconButton, Tooltip } from "@mui/material";
+import { EditNoteRounded } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "./styles.css";
 
 /* 
@@ -41,21 +44,29 @@ function TaskCard({ task, onEdit, onDelete, view }) {
   // action buttons shared between Kanban and List views
   const ActionButtons = (
     <div className="task-actions">
-      <button
-        className="editbtn"
-        // prevent drag start when clicking
-        onPointerDown={(e) => e.stopPropagation()}
-        onClick={() => onEdit(task)}
-      >
-        Edit
-      </button>
-      <button
-        className="deletebtn"
-        onPointerDown={(e) => e.stopPropagation()}
-        onClick={() => onDelete(task.id)}
-      >
-        Delete
-      </button>
+      <Tooltip title="Edit task">
+        <IconButton
+          size="medium"
+          // prevent drag start when clicking
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => onEdit(task)}
+          aria-label="edit task"
+        >
+          <EditNoteRounded fontSize="medium" />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Delete task">
+        <IconButton
+          size="medium"
+          color="error"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => onDelete(task.id)}
+          aria-label="delete task"
+        >
+          <DeleteIcon fontSize="medium" />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 
