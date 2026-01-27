@@ -1,16 +1,130 @@
-# React + Vite
+# 🎯 Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **responsive task management application built with React**, featuring **Kanban and List views**, **drag-and-drop task movement** using **dnd-kit**, and a **mobile-first responsive UI**.  
+This project was built as a **hands-on learning experience** focused on frontend fundamentals, state management, and responsive design.
 
-Currently, two official plugins are available:
+## 📦 Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Vite** – Fast development build tool  
+- **React.js** – Component-based UI  
+- **CSS** – Custom styling & media queries  
+- **dnd-kit** – Drag-and-drop functionality  
+- **Material UI (MUI)** – Icons, Select components, Modal UI  
 
-## React Compiler
+## 🧩 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 📝 Task Management (CRUD)
 
-## Expanding the ESLint configuration
+- **Add tasks**  
+  Create a new task using a modal form with:
+  - Task name  
+  - Due date  
+  - Priority level  
+  - Current status  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Update tasks**  
+  Edit existing tasks via the same modal, pre-filled with saved task data.
+
+- **Delete tasks**  
+  Remove tasks directly from the task card.
+
+- **Persistent storage**  
+  Tasks are saved in **localStorage**, so data remains after refreshing the page.
+
+### 🔍 Search, Filter & Sort
+
+- **Search tasks** by typing in the search bar  
+- **Filter tasks** by priority level  
+- **Sort tasks** by:
+  - Due date  
+  - Priority  
+  - Status  
+
+### 🧩 Views & Interaction
+
+- **Kanban View**  
+  Tasks are grouped by status and can be moved between columns using drag-and-drop.
+
+- **List View**  
+  Displays all tasks in a structured list format.
+
+- **View toggle**  
+  Switch between Kanban and List views using an icon button.
+
+- **Drag & Drop**  
+  Drag tasks between statuses — the task status updates automatically on drop.
+
+### 📱 Responsive Design (Half-Desktop / Tablet / Mobile)
+
+- **Hamburger menu & sidebar**  
+  On smaller screens, filters and sorting options are moved into a sidebar accessible via a hamburger menu.
+
+- **Mobile-friendly UI**  
+  Layouts adapt smoothly across:
+  - Half-desktop screens  
+  - Tablets  
+  - Mobile devices  
+
+- **Material UI Select & Modal**  
+  Native HTML select elements were replaced with MUI components for improved responsiveness and usability.
+
+## 👩🏽‍🍳 Development Process
+
+1. Implemented **core CRUD functionality** using a simple list view.  
+2. Added **localStorage** for task persistence.  
+3. Introduced a **modal-based form** for adding tasks.  
+4. Reused the same modal for editing tasks via **conditional rendering**.  
+5. Implemented **filtering and sorting** using a reusable Select component.  
+6. Added **Kanban view** and a toggle for switching layouts.  
+7. Integrated **drag-and-drop** using `dnd-kit`.  
+8. Focused on **responsive design** with media queries and layout adjustments.  
+9. Migrated key UI elements to **Material UI** for better cross-device support.
+
+## 📚 What I Learned
+
+- Implementing drag-and-drop interactions using **dnd-kit**  
+- Managing UI state efficiently in **React**  
+- Creating **reusable components**  
+- Building **responsive layouts** with CSS media queries  
+- Improving usability with **Material UI**  
+- Persisting data using **localStorage**
+
+## 💭 Future Improvements
+
+- **Habit Tracker Feature**
+  - Custom habit durations  
+  - Visual progress tracking  
+
+- Optional enhancements:
+  - Dark mode  
+  - Task categories or tags  
+  - Cloud-based persistence (Firebase or backend API)
+
+## 🚦 Running the Project
+
+Follow these steps to run the project locally:
+
+1. **Clone the repository** 
+
+```bash 
+git clone https://github.com/sithulikaluarachchi/Task-Management-Web-App.git 
+```
+
+3. **Install dependencies** 
+
+```bash
+npm install
+```
+4. **Start the development server** 
+```bash
+npm run dev
+```
+
+## Demo
+ **Live** :- https://task-management-web-app-umber-three.vercel.app/
+
+  <img src="./assets/demo.gif" alt="Task Management App Demo" width="400px"/>
+
+ 
+
+
